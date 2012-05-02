@@ -85,7 +85,7 @@ object Poker extends App{
   }
   
   override def main (args: Array[String]){
-	val numHands = 5
+    val numHands = 5
     printf("Let's hear %d Hands, Format Example: 10D, KH, AD, 2D, 5H\n", numHands)
     for (i <- List.range(1, numHands)){
 	  printf("Please Give %d Cards\n", numHands)
