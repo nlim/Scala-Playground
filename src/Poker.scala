@@ -39,10 +39,7 @@ object Poker extends App{
     	  case "K" => rank = 12
     	  case "Q" => rank = 11
     	  case "J" => rank = 10
-    	  case _   => {
-    		  rank = r.toInt - 1
-    	  }
-    	  
+    	  case  _  => rank = r.toInt - 1
     	}
         var s = matches.apply(1)
         s match {
