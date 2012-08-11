@@ -15,10 +15,10 @@ object BankAccount extends Actor {
     var sum = 0
     loop {
       receive {
-	      case Deposit(n) => sum += n
-	      case Withdrawal(n) => sum -= n
-	      case Reset => sum = 0
-	      case Total => reply(sum); exit
+	case Deposit(n) => sum += n
+	case Withdrawal(n) => sum -= n
+	case Reset => sum = 0
+	case Total => reply(sum); exit
       }
     }
   }
@@ -27,6 +27,7 @@ object BankAccount extends Actor {
 // Accounting Simulation, Showing Consistent, Coherent Computation
 object Accounting extends Application {
   val r = new Random()
+  // Create lists of Withdrawal and Deposit amounts
   var withdrawals = new ArrayBuffer[Int]()
   var deposits    = new ArrayBuffer[Int]()
   for (i <- (1 to 20))  withdrawals += i
@@ -43,6 +44,6 @@ object Accounting extends Application {
     BankAccount ! Withdrawal(amount)
   }
   BankAccount !? Total match {
-  	case result: Int => println(result)
+    case result: Int => println(result)
   }
 }

@@ -1,20 +1,19 @@
 /*
+ * Author: @nlim
  * This Program Outputs the Type of Poker Hand you have with the input
  * of 5 cards.
- * 
- * 
  */
 
 import scala.collection.mutable.HashMap
 
-
 object Poker extends App{
+
   def getHistogram(cards: Array[Int]): HashMap[Int, Int] = {
     var hash = new HashMap[Int, Int]
     for (c <- cards) {
       var rank = (c + 1) % 13
       if (hash.keySet.contains(rank)) hash(rank)+=1 else hash(rank) = 0
-    }
+    } 
     hash
   }
   
@@ -34,25 +33,24 @@ object Poker extends App{
     var suit: Int = 0;
     var rank: Int = -1;
     if (matches.length == 2){
-        var r = matches.apply(0) 
-    	r match {
-    	  case "A" => rank = 0
-    	  case "K" => rank = 12
-    	  case "Q" => rank = 11
-    	  case "J" => rank = 10
-    	  case  _  => rank = r.toInt - 1
-    	}
-        var s = matches.apply(1)
-        s match {
-          case "C" => suit = 0
-          case "D" => suit = 1
-          case "H" => suit = 2
-          case "S" => suit = 3
-        }
+      var r = matches.apply(0) 
+      r match {
+    	case "A" => rank = 0
+    	case "K" => rank = 12
+    	case "Q" => rank = 11
+    	case "J" => rank = 10
+    	case  _  => rank = r.toInt - 1
+      }
+      var s = matches.apply(1)
+      s match {
+        case "C" => suit = 0
+        case "D" => suit = 1
+        case "H" => suit = 2
+        case "S" => suit = 3
+      }
       
     }
     13*suit + rank;
-    
   }
   
   def printHand(card_names: Array[String]) = {
@@ -88,12 +86,12 @@ object Poker extends App{
     val numHands = 5
     printf("Let's hear %d Hands, Format Example: 10D, KH, AD, 2D, 5H\n", numHands)
     for (i <- List.range(1, numHands)){
-	  printf("Please Give %d Cards\n", numHands)
-	  var input = readLine;
-	  var cards = input.split(", ").map(_.toUpperCase())
-	  for(c <- cards.map(card_to_int)) printf("%d\t", c)
-	  print("\n")
-	  printHand(cards)
+      printf("Please Give %d Cards\n", numHands)
+      var input = readLine;
+      var cards = input.split(", ").map(_.toUpperCase())
+      for(c <- cards.map(card_to_int)) printf("%d\t", c)
+      print("\n")
+      printHand(cards)
     }
   }
 }
