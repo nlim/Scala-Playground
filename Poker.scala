@@ -24,7 +24,7 @@ object Poker extends App{
   def isStraight(cards: Array[Int]) = {
     val ranks = cards.map(_ % 13)
     ranks.sorted
-    scala.Math.abs(ranks(0) - ranks(4)) == 4
+    scala.math.abs(ranks(0) - ranks(4)) == 4
   }
   
   def card_to_int (in: String) = {
