@@ -27,8 +27,8 @@ object HelloWorld {
   }
   class EmptyStack[A] extends Stack[A] {
     def isEmpty = true
-    def top = error("EmptyStack.top") 
-    def pop = error("EmptyStack.pop")
+    def top = sys.error("EmptyStack.top") 
+    def pop = sys.error("EmptyStack.pop")
   }
   class NonEmptyStack[A](elem: A, rest: Stack[A]) extends Stack[A] {
     def isEmpty = false 

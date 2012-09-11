@@ -4,17 +4,29 @@
  * Poker Hand you have with the given input
  */
 
-import scala.collection.mutable.HashMap
+import scala.collection.mutable.Map
 
-object Poker extends App{
 
-  def getHistogram(cards: Array[Int]): HashMap[Int, Int] = {
-    var hash = new HashMap[Int, Int]
-    for (c <- cards) {
-      var rank = c % 13
-      if (hash.keySet.contains(rank)) hash(rank)+=1 else hash(rank) = 1
-    } 
-    return hash
+object Poker extends App {
+
+  // Contains is a Scala Extractor, used for pattern matching
+  // over a range 
+  class Contains(r: Range) {
+    def unapply(i: Int): Boolean = r contains i
+  }
+
+  // Captured in a more functional style
+  def getHistogram(cards: Array[Int]): Map[Int, Int] = {
+    cards.foldLeft(Map[Int, Int]()) { 
+      (histo, card_num) => 
+        val rank = card_num % 13
+        if (histo.keySet contains rank) {
+          histo(rank) += 1
+        } else {
+          histo(rank) = 1
+        }
+        histo
+     }
   }
   
   def isFlush(cards: Array[Int]): Boolean = {
@@ -23,15 +35,18 @@ object Poker extends App{
   
   def isStraight(cards: Array[Int]): Boolean = {
     val sorted_ranks = cards.map(x => x % 13).sorted
-    return scala.math.abs(sorted_ranks(0) - sorted_ranks(4)) == 4
-  }
+    val MatchesExists = new Contains(1 to 4)
+    sorted_ranks.length match {
+      case MatchesExists => false
+      case _ => scala.math.abs(sorted_ranks(0) - sorted_ranks(4)) == 4
+    }
+  } 
   
   def card_to_int(input: String): Int = {
     val card_code = """(\d+|A|K|Q|J)(C|D|H|S)""".r
     val matches = card_code.findFirstMatchIn(input).get.subgroups
     if (matches.length != 2) throw new IllegalArgumentException
-    val r = matches(0)
-    val s = matches(1)
+    val r = matches(0); val s = matches(1)
     val rank =  r match {
       case "A" => 0
       case "K" => 12

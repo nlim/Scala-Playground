@@ -6,8 +6,8 @@ import scala.collection.mutable.ArrayBuffer
 // Case Classes for the Messages
 case class Deposit(amount: Int)
 case class Withdrawal(amount: Int)
-case class Reset
-case class Total
+case class Reset()
+case class Total()
 
 // Actor Definition
 object BankAccount extends Actor {
@@ -25,7 +25,7 @@ object BankAccount extends Actor {
 }
 
 // Accounting Simulation, Showing Consistent, Coherent Computation
-object Accounting extends Application {
+object Accounting extends App {
   val r = new Random()
   // Create lists of Withdrawal and Deposit amounts
   var withdrawals = new ArrayBuffer[Int]()
