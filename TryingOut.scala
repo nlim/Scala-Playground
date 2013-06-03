@@ -6,6 +6,10 @@ object TryingOut extends App {
     List(0, 6, 1, 2, 3, 4, 5).foreach { i =>
      println(i + " as input results in: " + calculateResult(i))
     }
+
+    println(fold(List(1, 2, 3, 4))(calculateResult))
+
+    println(fold(List(1, 2, 3, 4, 5))(calculateResult))
   }
 
 
@@ -17,6 +21,17 @@ object TryingOut extends App {
     } yield c
   }
 
+  // Requires that all elements work
+  def fold[A, B](s: Seq[A])(f: A => Try[B]): Try[Seq[B]] = {
+    s.foldLeft(Try(Seq.empty[B])) { (trySoFar, elem) =>
+      for {
+        seq <- trySoFar
+        b <- f(elem)
+      } yield {
+        seq :+ b
+      }
+    }
+  }
 
 
   def foo(i: Int): Try[Int] = {
