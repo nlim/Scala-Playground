@@ -1,5 +1,6 @@
 import scala.util.Random;
 import scala.collection.mutable.HashMap
+import scala.language.postfixOps
 
 object HelloWorld {
   val rand = new Random()
@@ -63,12 +64,12 @@ object HelloWorld {
   def mergesort(list: List[Int]): List[Int] = {
     def merge(left: List[Int], right: List[Int]): List[Int] = {
       if (left.length < 1) {
-	right
+        right
       } else if (right.length < 1) {
-	left
+        left
       } else {
-	if   (left.head < right.head) left.head :: merge(left.tail, right)
-	else right.head :: merge(left, right.tail)
+        if   (left.head < right.head) left.head :: merge(left.tail, right)
+        else right.head :: merge(left, right.tail)
       }	     
     }
     val cut_one = list.slice(0, list.length/2)
