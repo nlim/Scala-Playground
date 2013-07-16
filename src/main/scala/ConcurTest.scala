@@ -1,10 +1,9 @@
-package test
 
+/*
 import scala.actors.Actor
 import scala.actors.Actor._
 import scala.util.Random
 import scala.collection.mutable.ArrayBuffer
-
 // Case Classes for the Messages
 case class Deposit(amount: Int)
 case class Withdrawal(amount: Int)
@@ -40,7 +39,7 @@ object Accounting extends App {
     amount = deposits.remove(r.nextInt(deposits.length))
     BankAccount ! Deposit(amount)
   }
-  
+
   while(withdrawals.length > 0) {
     amount = withdrawals.remove(r.nextInt(withdrawals.length))
     BankAccount ! Withdrawal(amount)
@@ -49,3 +48,4 @@ object Accounting extends App {
     case result: Int => println(result)
   }
 }
+*/
