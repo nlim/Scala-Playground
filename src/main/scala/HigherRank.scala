@@ -8,16 +8,18 @@ object HigherRank {
 
   // Can't resolve the type here because
   // having the universal quantification of our polymorphic f
-  // be in the scope of the whole function, it must be bound to
-  // a specific A for a given application of the apply function
+  // be in the scope of the whole function applyPloy, means that its
+  // concrete type must be known in the scope of the whole applyPoly function
+  // but what we want is that the specific type of the polymorphic f be known
+  // only in the scope of its application
   //
   // found   : b.type (with underlying type B)
   // required: A
-  //  def apply[A,B](f: A => List[A], b: B, s: String): (List[B], List[String]) = (f(b), f(s))
+  //  def applyPoly[A,B](f: A => List[A], b: B, s: String): (List[B], List[String]) = (f(b), f(s))
   //                                                                                 ^
   // found   : s.type (with underlying type String)
   // required: A
-  //  def apply[A,B](f: A => List[A], b: B, s: String): (List[B], List[String]) = (f(b), f(s))
+  //  def applyPoly[A,B](f: A => List[A], b: B, s: String): (List[B], List[String]) = (f(b), f(s))
   //                                                                                      ^
   //
   //
@@ -31,7 +33,6 @@ object HigherRank {
 
   val runPoly = applyPoly2(singletonList, 'c', 5)
 
-
   val fuser = new Nat2[Id, Id, List] {
     def apply[A](a: A)(a2: A) = List(a, a2)
   }
@@ -39,7 +40,7 @@ object HigherRank {
   type Id[A] = A
 
   trait ~>[F[_],G[_]] {
-      def apply[A](a: F[A]): G[A]
+    def apply[A](a: F[A]): G[A]
   }
 
   trait Nat2[F[_], G[_], H[_]] {
