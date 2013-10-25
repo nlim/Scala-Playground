@@ -28,12 +28,13 @@ object HigherRank {
 
   def applyPoly2[B, C](f: Id ~> List, b: B, c: C): (List[B], List[C]) = (f(b), f(c))
 
-  def applyPoly3[B, C](f: Nat2[Id, Id, List], b1: B, b2: B, c1: C, c2: C): (List[B], List[C])  =
-    (f(b1)(b2), f(c1)(c2))
+  def applyPoly3[B, C](f: PolyLister, b1: B, b2: B, c1: C, c2: C): (List[B], List[C]) = (f(b1)(b2), f(c1)(c2))
 
   val runPoly = applyPoly2(singletonList, 'c', 5)
 
-  val fuser = new Nat2[Id, Id, List] {
+  type PolyLister = Nat2[Id, Id, List]
+
+  val fuser = new PolyLister {
     def apply[A](a: A)(a2: A) = List(a, a2)
   }
 
