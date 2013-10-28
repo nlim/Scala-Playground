@@ -2,5 +2,6 @@ numbers/
 test/
 .DS_Store
 project/project/
+project/boot
 project/target/
 target/

@@ -10,15 +10,15 @@ import scala.collection.mutable.Map
 object Poker extends App {
 
   // Contains is a Scala Extractor, used for pattern matching
-  // over a range 
+  // over a range
   class Contains(r: Range) {
     def unapply(i: Int): Boolean = r contains i
   }
 
   // Captured in a more functional style
   def getHistogram(cards: Array[Int]): Map[Int, Int] = {
-    cards.foldLeft(Map[Int, Int]()) { 
-      (histo, card_num) => 
+    cards.foldLeft(Map[Int, Int]()) {
+      (histo, card_num) =>
         val rank = card_num % 13
         if (histo.keySet contains rank) {
           histo(rank) += 1
@@ -28,11 +28,11 @@ object Poker extends App {
         histo
      }
   }
-  
+
   def isFlush(cards: Array[Int]): Boolean = {
     return cards.map(x => x/13).toSet.size == 1
   }
-  
+
   def isStraight(cards: Array[Int]): Boolean = {
     val sorted_ranks = cards.map(x => x % 13).sorted
     val MatchesExists = new Contains(1 to 4)
@@ -40,8 +40,8 @@ object Poker extends App {
       case MatchesExists => false
       case _ => scala.math.abs(sorted_ranks(0) - sorted_ranks(4)) == 4
     }
-  } 
-  
+  }
+
   def card_to_int(input: String): Int = {
     val card_code = """(\d+|A|K|Q|J)(C|D|H|S)""".r
     val matches = card_code.findFirstMatchIn(input).get.subgroups
@@ -62,7 +62,7 @@ object Poker extends App {
     }
     return 13*suit + rank;
   }
-  
+
   def printHand(card_names: Array[String]) = {
     try {
       val cards    = card_names.map(card_to_int)
@@ -91,12 +91,12 @@ object Poker extends App {
       } else {
         println("You have a card high")
       }
-    } catch { 
-      case e: IllegalArgumentException => 
+    } catch {
+      case e: IllegalArgumentException =>
         println("You have given bad input.\nPlease follow the format example: 10D, KH, AD, 2D, 5H")
     }
   }
-  
+
   override def main (args: Array[String]){
     val numHands = 5
     printf("Let's hear %d Hands, Format Example: 10D, KH, AD, 2D, 5H\n", numHands)

@@ -19,6 +19,8 @@ object TryingOut extends App {
       b <- bar(a)
       c <- baz(b)
     } yield c
+
+
   }
 
   // Requires that all elements work
